@@ -1,5 +1,4 @@
 node_modules/
-dist/
 build/
 .vite/
 .env
@@ -12,6 +11,5 @@ yarn-error.log*
 .vscode/
 public/build/
 node_modules
-dist
 .DS_Store
 *.local
