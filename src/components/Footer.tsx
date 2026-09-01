@@ -46,6 +46,9 @@ export function Footer() {
           <a href="https://standards.ieee.org/" target="_blank" rel="noreferrer">
             IEEE Standards ↗
           </a>
+          <a href="https://github.com/Shan-875/IEEE-CNAG" target="_blank" rel="noreferrer">
+            GitHub Repository ↗
+          </a>
           <a href="https://www.ieee.org/security-privacy.html" target="_blank" rel="noreferrer">
             Privacy Policy ↗
           </a>
