@@ -2106,4 +2106,399 @@ img {
   .btn {
     width: 100%;
   }
+
+  .floating-dock-pill {
+    padding: 6px 10px;
+    gap: 4px;
+  }
+
+  .dock-label {
+    display: none;
+  }
+
+  .dock-link {
+    padding: 8px 10px;
+  }
 }
+
+/* ====================================================
+   AWARD-WINNING MOTION GRAPHICS & 3D INTERACTIVE STYLES
+   (Inspired by qclaydesign / DOTDNA)
+   ==================================================== */
+
+/* 1. FLOATING GLASS PILL DOCK NAVIGATION */
+.floating-dock-wrapper {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 990;
+  pointer-events: auto;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+}
+
+.floating-dock-wrapper.is-hidden {
+  transform: translate(-50%, 100px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-dock-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 8px 16px;
+  background: rgba(26, 22, 18, 0.82);
+  border: 1px solid rgba(184, 137, 74, 0.32);
+  border-radius: 999px;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 0 20px rgba(52, 211, 153, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dock-status-beacon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  margin-right: 4px;
+}
+
+.beacon-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.beacon-pulse {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.4);
+  animation: beaconPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes beaconPing {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.dock-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dock-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--sand);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.dock-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dock-link.active {
+  color: #ffffff;
+  background: rgba(184, 137, 74, 0.24);
+  border: 1px solid rgba(184, 137, 74, 0.45);
+  box-shadow: 0 0 14px rgba(184, 137, 74, 0.25);
+}
+
+.dock-link.dock-cta {
+  background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+  color: var(--ink);
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(184, 137, 74, 0.35);
+}
+
+.dock-link.dock-cta:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 18px rgba(184, 137, 74, 0.5);
+}
+
+.dock-icon {
+  font-size: 0.86rem;
+  opacity: 0.85;
+}
+
+/* 2. LASER BEAM & ENERGY SWEEP LINES */
+.laser-track {
+  position: relative;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 18px 0;
+}
+
+.laser-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
+  animation: laserSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  filter: drop-shadow(0 0 6px #10b981);
+}
+
+.laser-track.gold .laser-beam {
+  background: linear-gradient(90deg, transparent 0%, #f59e0b 50%, transparent 100%);
+  filter: drop-shadow(0 0 6px #f59e0b);
+}
+
+.laser-track.cyan .laser-beam {
+  background: linear-gradient(90deg, transparent 0%, #38bdf8 50%, transparent 100%);
+  filter: drop-shadow(0 0 6px #38bdf8);
+}
+
+@keyframes laserSweep {
+  0% {
+    left: -140px;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+/* 3. 3D TILT CARDS & SPECULAR SPOTLIGHT */
+.tilt-card-container {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-card-specular {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 240px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.4),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.tilt-card-container:hover .tilt-card-specular {
+  opacity: 1;
+}
+
+.tilt-card-laser {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  transform: scaleX(0.4);
+}
+
+.tilt-card-container:hover .tilt-card-laser {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* 4. FLOATING CERTIFICATION & DOMAIN BADGES */
+.floating-badges-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 24px;
+}
+
+.floating-badge-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(251, 248, 243, 0.8));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(107, 29, 42, 0.08);
+  backdrop-filter: blur(12px);
+  animation: floatDrift 5.5s ease-in-out infinite alternate;
+  cursor: default;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-badge-item:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--line-gold);
+  box-shadow: 0 14px 32px rgba(107, 29, 42, 0.16);
+}
+
+@keyframes floatDrift {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-8px) rotate(0.6deg);
+  }
+}
+
+.badge-glow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+}
+
+.floating-badge-item.accent-gold .badge-glow-dot {
+  background: #f59e0b;
+  box-shadow: 0 0 10px #f59e0b;
+}
+
+.floating-badge-item.accent-cyan .badge-glow-dot {
+  background: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+.badge-cat {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  font-weight: 700;
+}
+
+.badge-title {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* 5. KINETIC INLINE TYPOGRAPHY BADGE */
+.kinetic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  margin: 0 6px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(5, 150, 105, 0.08));
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+  vertical-align: middle;
+  font-size: 0.6em;
+  font-family: var(--sans);
+  color: #059669;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.kinetic-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.kinetic-wave span {
+  width: 2px;
+  height: 100%;
+  background: #10b981;
+  border-radius: 2px;
+  animation: wavePulse 1.2s ease-in-out infinite alternate;
+}
+
+.kinetic-wave span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.kinetic-wave span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes wavePulse {
+  0% {
+    height: 30%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+/* 6. INTERACTIVE CTA TOGGLE SWITCH (Image 3 Inspiration) */
+.contact-toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--line-gold);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(107, 29, 42, 0.12);
+  margin-top: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-toggle-pill:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(107, 29, 42, 0.18);
+}
+
+.toggle-switch-icon {
+  width: 28px;
+  height: 16px;
+  background: #10b981;
+  border-radius: 999px;
+  position: relative;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+.toggle-switch-icon::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.toggle-label {
+  font-size: 0.88rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+

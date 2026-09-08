@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { consultants } from "../data";
 import { Reveal } from "../components/Reveal";
+import { TiltCard } from "../components/TiltCard";
+import { LaserLine } from "../components/LaserLine";
 
 export function Consultants() {
   const [q, setQ] = useState("");
@@ -34,6 +36,8 @@ export function Consultants() {
           Explore domain practice areas below or apply to list your consultancy practice on the roster.
         </p>
 
+        <LaserLine color="green" width="240px" />
+
         <label className="search">
           <span className="sr">Search consultancy practices</span>
           <input
@@ -63,14 +67,17 @@ export function Consultants() {
           <div className="trio">
             {list.map((c, i) => (
               <Reveal key={c.id} delay={i * 60}>
-                <article
+                <TiltCard
+                  maxRotation={10}
+                  glowColor="green"
+                  hasLaser={true}
                   className="card"
                   style={{ cursor: "pointer" }}
                   onClick={() => setSelectedPractice(c)}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
                     <span className="card-badge">{c.domain}</span>
-                    <span style={{ fontSize: "0.72rem", color: "var(--ieee-blue)", fontWeight: 700, background: "var(--ieee-cyan-soft)", padding: "2px 8px", borderRadius: "4px" }}>
+                    <span style={{ fontSize: "0.72rem", color: "var(--maroon)", fontWeight: 700, background: "rgba(107, 29, 42, 0.08)", padding: "2px 8px", borderRadius: "4px" }}>
                       {c.status}
                     </span>
                   </div>
@@ -78,8 +85,8 @@ export function Consultants() {
                   <h3>{c.name}</h3>
                   <p style={{ marginBottom: "16px" }}>{c.focus}</p>
 
-                  <div style={{ marginTop: "auto", borderTop: "1px solid var(--border-subtle)", paddingTop: "14px" }}>
-                    <div style={{ fontSize: "0.76rem", color: "var(--text-light)", marginBottom: "8px", fontWeight: 600 }}>
+                  <div style={{ marginTop: "auto", borderTop: "1px solid var(--line)", paddingTop: "14px" }}>
+                    <div style={{ fontSize: "0.76rem", color: "var(--taupe)", marginBottom: "8px", fontWeight: 600 }}>
                       Practice Leads: {c.leads}
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
@@ -90,7 +97,7 @@ export function Consultants() {
                       ))}
                     </div>
                   </div>
-                </article>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

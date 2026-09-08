@@ -8,6 +8,8 @@ import {
 } from "../data";
 import { Reveal } from "../components/Reveal";
 import { ExecomModal } from "../components/ExecomModal";
+import { TiltCard } from "../components/TiltCard";
+import { LaserLine } from "../components/LaserLine";
 
 export function Execom() {
   const [search, setSearch] = useState("");
@@ -33,7 +35,10 @@ export function Execom() {
 
   const renderCard = (member: CommitteeMember, i: number) => (
     <Reveal key={member.id} delay={(i % 4) * 60}>
-      <article
+      <TiltCard
+        maxRotation={12}
+        glowColor={member.category === "officer" ? "gold" : "green"}
+        hasLaser={true}
         className={`execom-card ${member.category}`}
         onClick={() => setSelectedMember(member)}
         tabIndex={0}
@@ -70,7 +75,7 @@ export function Execom() {
           <span>{member.ieeeGrade}</span>
           <span className="execom-view-btn">View Profile →</span>
         </div>
-      </article>
+      </TiltCard>
     </Reveal>
   );
 
@@ -83,6 +88,8 @@ export function Execom() {
           Governing council of the IEEE Kerala Section Consultants’ Network Affinity Group (CNAG-KS),
           comprising elected Office Bearers, Executive Committee members, and Senior Advisory mentors.
         </p>
+
+        <LaserLine color="gold" width="260px" />
 
         <label className="search">
           <span className="sr">Search Executive Committee</span>

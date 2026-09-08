@@ -16,14 +16,22 @@ import { NetworkCanvas } from "../components/NetworkCanvas";
 import { Backwater } from "../components/Backwater";
 import { Reveal } from "../components/Reveal";
 import { ExecomModal } from "../components/ExecomModal";
+import { HoloMeshCanvas } from "../components/HoloMeshCanvas";
+import { LaserLine } from "../components/LaserLine";
+import { TiltCard } from "../components/TiltCard";
+import { FloatingBadges } from "../components/FloatingBadges";
 
 export function Home() {
   const [activeFilter, setActiveFilter] = useState<"divided" | "officer" | "member" | "advisor">("divided");
   const [selectedMember, setSelectedMember] = useState<CommitteeMember | null>(null);
+  const [contactToggled, setContactToggled] = useState(false);
 
   const renderMemberCard = (member: CommitteeMember, i: number) => (
     <Reveal key={member.id} delay={(i % 4) * 70}>
-      <article
+      <TiltCard
+        maxRotation={12}
+        glowColor={member.category === "officer" ? "gold" : "green"}
+        hasLaser={true}
         className={`execom-card ${member.category}`}
         onClick={() => setSelectedMember(member)}
         tabIndex={0}
@@ -60,13 +68,13 @@ export function Home() {
           <span>{member.ieeeGrade.split(",")[0]}</span>
           <span className="execom-view-btn">View Profile →</span>
         </div>
-      </article>
+      </TiltCard>
     </Reveal>
   );
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section with Motion Graphics & 3D Depth */}
       <section className="hero">
         <NetworkCanvas />
         <div className="hero-veil" />
@@ -87,15 +95,28 @@ export function Home() {
           </Reveal>
           <Reveal delay={120}>
             <p className="hero-sub">
-              The professional home of independent engineering consultants in Kerala — a living
-              network of practice, counsel, and public service, empowered by technology and
-              driven by excellence.
+              We are{" "}
+              <span className="kinetic-badge">
+                <span className="kinetic-wave">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                IEEE Accredited
+              </span>{" "}
+              consultancy network in Kerala — uniting independent engineering practitioners,
+              seasoned corporate advisors, and university leaders into a high-stakes problem-solving ecosystem.
             </p>
           </Reveal>
+
+          <Reveal delay={160}>
+            <LaserLine color="green" width="280px" />
+          </Reveal>
+
           <Reveal delay={180}>
             <div className="hero-actions">
               <Link to="/join" className="btn gold">
-                Join as Consultant
+                Join as Consultant →
               </Link>
               <Link to="/consultants" className="btn ghost">
                 Find a Consultant
@@ -138,7 +159,7 @@ export function Home() {
         </div>
       </div>
 
-      {/* About Brief */}
+      {/* About Brief with Floating Accreditation Badges */}
       <section className="section">
         <div className="wrap split">
           <Reveal>
@@ -146,6 +167,8 @@ export function Home() {
             <h2 className="display">
               A Kerala Section platform for the consulting profession.
             </h2>
+            <LaserLine color="gold" width="220px" />
+            <FloatingBadges />
           </Reveal>
           <Reveal delay={120}>
             <p className="lede">
@@ -153,8 +176,12 @@ export function Home() {
               transparent roster of consultants. We provide independent technical counsel to MSMEs, enterprises,
               and government stakeholders while nurturing the next generation of engineering advisors.
             </p>
-            <Link to="/about" className="text-link">
-              Read our mission & charter
+            <p className="lede" style={{ marginTop: "14px" }}>
+              Our practitioners deliver rigorous techno-commercial feasibility evaluations, patents reviews,
+              and policy compliance guidance backed by global IEEE standards and ethics.
+            </p>
+            <Link to="/about" className="text-link" style={{ marginTop: "18px", display: "inline-block" }}>
+              Read our full charter & strategic pillars →
             </Link>
           </Reveal>
         </div>
@@ -164,35 +191,40 @@ export function Home() {
       <section className="section dim">
         <div className="wrap mv">
           <Reveal>
-            <article>
-              <p className="eyebrow">Our Mission</p>
-              <p>{mission}</p>
-            </article>
+            <TiltCard maxRotation={8} glowColor="maroon">
+              <article style={{ padding: "8px" }}>
+                <p className="eyebrow">Our Mission</p>
+                <p>{mission}</p>
+              </article>
+            </TiltCard>
           </Reveal>
           <Reveal delay={120}>
-            <article>
-              <p className="eyebrow">Our Vision</p>
-              <p>{vision}</p>
-            </article>
+            <TiltCard maxRotation={8} glowColor="gold">
+              <article style={{ padding: "8px" }}>
+                <p className="eyebrow">Our Vision</p>
+                <p>{vision}</p>
+              </article>
+            </TiltCard>
           </Reveal>
         </div>
       </section>
 
-      {/* Who Can Join */}
+      {/* Who Can Join - 3D Tilt Cards */}
       <section className="section">
         <div className="wrap">
           <Reveal>
             <p className="eyebrow">Membership Pathways</p>
             <h2 className="display">Three doors into the same room.</h2>
+            <LaserLine color="green" width="180px" />
           </Reveal>
           <div className="trio">
             {audiences.map((a, i) => (
               <Reveal key={a.title} delay={i * 90}>
-                <article className="card">
+                <TiltCard maxRotation={10} glowColor="green" hasLaser={true} className="card">
                   <span className="card-badge">{a.badge}</span>
                   <h3>{a.title}</h3>
                   <p>{a.body}</p>
-                </article>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
@@ -212,6 +244,7 @@ export function Home() {
                 Structured under IEEE Region 10 and Kerala Section charter, dividing Core Office Bearers,
                 Executive Committee members, and Senior Advisory Board.
               </p>
+              <LaserLine color="gold" width="260px" />
             </Reveal>
 
             {/* Category Filter Tabs */}
@@ -311,17 +344,18 @@ export function Home() {
         </div>
       </section>
 
-      {/* ConsulTalks & Recent Events */}
+      {/* ConsulTalks & Recent Events with 3D Depth */}
       <section className="section">
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "32px", flexWrap: "wrap", gap: "16px" }}>
             <Reveal>
               <p className="eyebrow">Knowledge Sharing</p>
               <h2 className="display">ConsulTalks & Technical Sessions</h2>
+              <LaserLine color="green" width="220px" />
             </Reveal>
             <Reveal>
               <Link to="/events" className="text-link">
-                View All Events Archive
+                View All Events Archive →
               </Link>
             </Reveal>
           </div>
@@ -329,7 +363,7 @@ export function Home() {
           <div className="event-rail">
             {events.slice(0, 4).map((e, i) => (
               <Reveal key={e.id} delay={i * 80}>
-                <article className="event-card">
+                <TiltCard maxRotation={8} glowColor="green" hasLaser={true} className="event-card">
                   <div className="event-img">
                     <img src={e.image} alt={e.title} loading="lazy" />
                   </div>
@@ -337,18 +371,23 @@ export function Home() {
                   <h3>{e.title}</h3>
                   <time>{e.date}</time>
                   <p>{e.summary}</p>
-                </article>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Band: High Prestige Membership Showcase */}
+      {/* CTA Band: High Prestige Membership Showcase with 3D Hologram (Image 3 Inspiration) */}
       <section className="cta-band">
         <NetworkCanvas />
         <div className="wrap cta-inner">
           <Reveal>
+            {/* 3D Holographic Particle Simulation */}
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "-20px" }}>
+              <HoloMeshCanvas color="green" size={260} particleCount={550} />
+            </div>
+
             <p className="eyebrow">
               ✦ IEEE Kerala Section · CNAG Enrolment ✦
             </p>
@@ -386,6 +425,26 @@ export function Home() {
               <Link to="/consultants" className="btn ghost">
                 Search Expert Directory
               </Link>
+            </div>
+
+            {/* Interactive Toggle Switch (Image 3 Inspiration) */}
+            <div>
+              <div
+                className="contact-toggle-pill"
+                onClick={() => setContactToggled(!contactToggled)}
+                role="button"
+                tabIndex={0}
+              >
+                <div
+                  className="toggle-switch-icon"
+                  style={{
+                    background: contactToggled ? "#f59e0b" : "#10b981",
+                  }}
+                />
+                <span className="toggle-label">
+                  {contactToggled ? "Direct Secretariat Hotline Ready" : "Fast-Track Enrolment Active"}
+                </span>
+              </div>
             </div>
 
             <p className="cta-help">
