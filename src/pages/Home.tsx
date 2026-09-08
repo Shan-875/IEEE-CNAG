@@ -20,6 +20,7 @@ import { HoloMeshCanvas } from "../components/HoloMeshCanvas";
 import { LaserLine } from "../components/LaserLine";
 import { TiltCard } from "../components/TiltCard";
 import { FloatingBadges } from "../components/FloatingBadges";
+import { Floating3DNames } from "../components/Floating3DNames";
 
 export function Home() {
   const [activeFilter, setActiveFilter] = useState<"divided" | "officer" | "member" | "advisor">("divided");
@@ -121,8 +122,8 @@ export function Home() {
               <Link to="/consultants" className="btn ghost">
                 Find a Consultant
               </Link>
-              <a href="#execom-showcase" className="btn ghost">
-                Executive Leadership ↓
+              <a href="#moving-names-showcase" className="btn ghost">
+                3D Leaders Matrix ↓
               </a>
             </div>
           </Reveal>
@@ -159,36 +160,101 @@ export function Home() {
         </div>
       </div>
 
-      {/* About Brief with Floating Accreditation Badges */}
-      <section className="section">
-        <div className="wrap split">
+      {/* =======================================================
+          SCREEN 1: BOUTIQUE 3-PILLAR SECTION (Reel Image 2 Match)
+         ======================================================= */}
+      <section className="section boutique-hero-section">
+        <div className="wrap">
           <Reveal>
-            <p className="eyebrow">About CNAG Kerala</p>
-            <h2 className="display">
-              A Kerala Section platform for the consulting profession.
+            <h2 className="display" style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)", maxWidth: "880px", margin: "0 auto 20px" }}>
+              We are{" "}
+              <span className="kinetic-badge">
+                <span className="kinetic-wave">
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                Accredited
+              </span>{" "}
+              independent engineering consultants
             </h2>
-            <LaserLine color="gold" width="220px" />
-            <FloatingBadges />
+            <p style={{ maxWidth: "780px", margin: "0 auto 24px", color: "var(--taupe)", fontSize: "1.08rem", lineHeight: 1.8 }}>
+              At IEEE Kerala Section CNAG, our expertise extends across diverse industries and sectors, including power transmission,
+              clean energy microgrids, AI hardware, biomedical instrumentation, and ESG sustainability reporting. Our team's expertise is backed by
+              the highest standards of IEEE certifications.
+            </p>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <LaserLine color="green" width="320px" />
+            </div>
           </Reveal>
-          <Reveal delay={120}>
+
+          <div className="boutique-pill-grid">
+            <Reveal delay={80}>
+              <TiltCard maxRotation={10} glowColor="green" hasLaser={true} className="boutique-card">
+                <span className="boutique-num">[ 01 ] Experience</span>
+                <h3>We have decades of experience</h3>
+                <p>
+                  Drawing from years of senior engineering leadership across KSEB, state energy boards, academic deanships,
+                  and multinational tech firms to defend and grow critical assets.
+                </p>
+              </TiltCard>
+            </Reveal>
+
+            <Reveal delay={160}>
+              <TiltCard maxRotation={10} glowColor="gold" hasLaser={true} className="boutique-card">
+                <span className="boutique-num" style={{ color: "#d97706" }}>[ 02 ] Customization</span>
+                <h3>We offer customized solutions</h3>
+                <p>
+                  Recognizing that each enterprise confronts unique challenges, we assemble specialized, tailor-made
+                  multi-disciplinary advisory syndicates specific to project demands.
+                </p>
+              </TiltCard>
+            </Reveal>
+
+            <Reveal delay={240}>
+              <TiltCard maxRotation={10} glowColor="cyan" hasLaser={true} className="boutique-card">
+                <span className="boutique-num" style={{ color: "#0284c7" }}>[ 03 ] Up-To-Date</span>
+                <h3>We stay standards compliant</h3>
+                <p>
+                  In the dynamic landscape of technological transitions, our focus is on staying ahead with peer-reviewed
+                  IEEE standards, emerging AI VLSI, and net-zero sustainability frameworks.
+                </p>
+              </TiltCard>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* =======================================================
+          SCREEN 2: 3D MOVING NAMES & LEADERSHIP STAGE (Reel Image 1 Match)
+         ======================================================= */}
+      <section className="section dim" id="moving-names-showcase">
+        <div className="wrap split" style={{ alignItems: "center" }}>
+          <Reveal>
+            <p className="eyebrow">✦ 3D Interactive Leadership Matrix ✦</p>
+            <h2 className="display">Our Certifications & Key Leaders</h2>
             <p className="lede">
-              CNAG-KS brings together certified IEEE members and industry leaders to build a trusted,
-              transparent roster of consultants. We provide independent technical counsel to MSMEs, enterprises,
-              and government stakeholders while nurturing the next generation of engineering advisors.
+              Move your cursor across the stage to interact with the 3D depth field. Click on any floating leader card
+              to inspect full technical credentials, bio, and direct consultation contact.
             </p>
-            <p className="lede" style={{ marginTop: "14px" }}>
-              Our practitioners deliver rigorous techno-commercial feasibility evaluations, patents reviews,
-              and policy compliance guidance backed by global IEEE standards and ethics.
-            </p>
-            <Link to="/about" className="text-link" style={{ marginTop: "18px", display: "inline-block" }}>
-              Read our full charter & strategic pillars →
-            </Link>
+            <LaserLine color="green" width="260px" />
+            <div style={{ marginTop: "24px" }}>
+              <FloatingBadges />
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            {/* 3D Floating Moving Names Stage */}
+            <Floating3DNames
+              members={executiveCommittee}
+              onSelectMember={(m) => setSelectedMember(m)}
+            />
           </Reveal>
         </div>
       </section>
 
       {/* Mission & Vision */}
-      <section className="section dim">
+      <section className="section">
         <div className="wrap mv">
           <Reveal>
             <TiltCard maxRotation={8} glowColor="maroon">
@@ -210,7 +276,7 @@ export function Home() {
       </section>
 
       {/* Who Can Join - 3D Tilt Cards */}
-      <section className="section">
+      <section className="section dim">
         <div className="wrap">
           <Reveal>
             <p className="eyebrow">Membership Pathways</p>
@@ -232,9 +298,9 @@ export function Home() {
       </section>
 
       {/* =======================================================
-          DIVIDED EXECUTIVE COMMITTEE SECTION (User Request)
+          DIVIDED EXECUTIVE COMMITTEE SECTION (Grid View)
          ======================================================= */}
-      <section className="section dim" id="execom-showcase">
+      <section className="section" id="execom-showcase">
         <div className="wrap">
           <div className="execom-section-head">
             <Reveal>
@@ -345,7 +411,7 @@ export function Home() {
       </section>
 
       {/* ConsulTalks & Recent Events with 3D Depth */}
-      <section className="section">
+      <section className="section dim">
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "32px", flexWrap: "wrap", gap: "16px" }}>
             <Reveal>
@@ -378,51 +444,34 @@ export function Home() {
         </div>
       </section>
 
-      {/* CTA Band: High Prestige Membership Showcase with 3D Hologram (Image 3 Inspiration) */}
+      {/* =======================================================
+          SCREEN 3: 3D HOLOGRAM CONTACT & CTA (Reel Image 3 Match)
+         ======================================================= */}
       <section className="cta-band">
         <NetworkCanvas />
         <div className="wrap cta-inner">
           <Reveal>
             {/* 3D Holographic Particle Simulation */}
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "-20px" }}>
-              <HoloMeshCanvas color="green" size={260} particleCount={550} />
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "-10px" }}>
+              <HoloMeshCanvas color="green" size={280} particleCount={600} />
             </div>
 
             <p className="eyebrow">
               ✦ IEEE Kerala Section · CNAG Enrolment ✦
             </p>
-            <h2 className="display">
-              Join the IEEE Kerala Consultants Network & Elevate Your Career
+            <h2 className="display" style={{ fontSize: "clamp(2.6rem, 6vw, 4.4rem)" }}>
+              Contact us Today ✎
             </h2>
-            <p>
-              Whether you are an established engineering consultant, an IEEE professional expanding into independent advisory,
-              or an organization seeking certified technical counsel, CNAG-KS provides the recognized accreditation and network you need.
+            <p style={{ maxWidth: "660px", margin: "0 auto 28px" }}>
+              Whenever you have queries, require expert engineering advice, or need prompt technical support,
+              our accredited independent consultants are just a click away.
             </p>
 
-            <div className="cta-perks">
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>Accredited Roster of Independent Engineering Consultants</div>
-              </div>
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>Access to Multi-Disciplinary Public & Private Project Syndicates</div>
-              </div>
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>ConsulTalks Keynote Speaking & Thought Leadership Platform</div>
-              </div>
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>Ethical Practice Charters & Standard IEEE Contract Templates</div>
-              </div>
-            </div>
-
-            <div className="cta-actions">
-              <Link to="/join" className="btn gold">
+            <div className="cta-actions" style={{ marginBottom: "18px" }}>
+              <Link to="/join" className="btn gold" style={{ padding: "14px 32px", fontSize: "1rem" }}>
                 Enrol as a Consultant →
               </Link>
-              <Link to="/consultants" className="btn ghost">
+              <Link to="/consultants" className="btn ghost" style={{ padding: "14px 28px" }}>
                 Search Expert Directory
               </Link>
             </div>
@@ -434,6 +483,7 @@ export function Home() {
                 onClick={() => setContactToggled(!contactToggled)}
                 role="button"
                 tabIndex={0}
+                title="Click to toggle hotline status"
               >
                 <div
                   className="toggle-switch-icon"
@@ -442,13 +492,13 @@ export function Home() {
                   }}
                 />
                 <span className="toggle-label">
-                  {contactToggled ? "Direct Secretariat Hotline Ready" : "Fast-Track Enrolment Active"}
+                  {contactToggled ? "Secretariat Direct Line: ieeekerala@gmail.com" : "Contact us Active"}
                 </span>
               </div>
             </div>
 
-            <p className="cta-help">
-              Have questions regarding membership or roster inclusion? Write to the Section Secretariat at{" "}
+            <p className="cta-help" style={{ marginTop: "20px" }}>
+              Reach out directly to IEEE Kerala Section Secretariat at{" "}
               <a href="mailto:ieeekerala@gmail.com">ieeekerala@gmail.com</a>.
             </p>
           </Reveal>

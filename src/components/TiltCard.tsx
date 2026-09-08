@@ -5,7 +5,7 @@ interface TiltCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   maxRotation?: number;
-  glowColor?: "green" | "gold" | "maroon";
+  glowColor?: "green" | "gold" | "maroon" | "cyan";
   hasLaser?: boolean;
 }
 

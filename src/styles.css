@@ -2309,6 +2309,26 @@ img {
   opacity: 1;
 }
 
+.tilt-card-container.glow-green:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 16px 36px rgba(16, 185, 129, 0.12), 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+.tilt-card-container.glow-gold:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 16px 36px rgba(245, 158, 11, 0.12), 0 0 20px rgba(245, 158, 11, 0.1);
+}
+
+.tilt-card-container.glow-cyan:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 16px 36px rgba(56, 189, 248, 0.12), 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.tilt-card-container.glow-maroon:hover {
+  border-color: rgba(107, 29, 42, 0.4);
+  box-shadow: 0 16px 36px rgba(107, 29, 42, 0.12), 0 0 20px rgba(107, 29, 42, 0.1);
+}
+
 .tilt-card-laser {
   position: absolute;
   bottom: 0;
@@ -2319,6 +2339,14 @@ img {
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.5s ease;
   transform: scaleX(0.4);
+}
+
+.tilt-card-container.glow-gold .tilt-card-laser {
+  background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+}
+
+.tilt-card-container.glow-cyan .tilt-card-laser {
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
 }
 
 .tilt-card-container:hover .tilt-card-laser {
@@ -2496,9 +2524,205 @@ img {
   transition: transform 0.2s ease;
 }
 
-.toggle-label {
-  font-size: 0.88rem;
-  color: var(--ink);
+/* 7. 3D MOVING NAMES & LEADERS FLOATING STAGE (Reel Image 1 & 2 Match) */
+.floating-3d-names-stage {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 24px;
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.08) 0%, transparent 70%), linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(250, 247, 242, 0.4));
+  border: 1px solid var(--line);
+}
+
+.names-laser-stream {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.4) 30%, #10b981 50%, rgba(16, 185, 129, 0.4) 70%, transparent 100%);
+  transform: translateY(-50%);
+  filter: drop-shadow(0 0 10px #10b981);
+}
+
+.stream-glow {
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: 20%;
+  right: 20%;
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.25) 0%, transparent 80%);
+  animation: laserStreamPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes laserStreamPulse {
+  0% {
+    opacity: 0.4;
+    transform: scaleX(0.8);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scaleX(1.1);
+  }
+}
+
+.floating-3d-cluster {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-3d-card {
+  position: absolute;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(251, 248, 243, 0.88));
+  border: 1px solid rgba(184, 137, 74, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(107, 29, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  will-change: transform;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: nameDrift3D 6s ease-in-out infinite alternate;
+}
+
+@keyframes nameDrift3D {
+  0% {
+    margin-top: -6px;
+  }
+  100% {
+    margin-top: 6px;
+  }
+}
+
+.floating-3d-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 20px 48px rgba(16, 185, 129, 0.25), 0 0 24px rgba(16, 185, 129, 0.3);
+  z-index: 50 !important;
+}
+
+.floating-3d-card.accent-gold:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 20px 48px rgba(245, 158, 11, 0.25), 0 0 24px rgba(245, 158, 11, 0.3);
+}
+
+.floating-3d-card.accent-cyan:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 20px 48px rgba(56, 189, 248, 0.25), 0 0 24px rgba(56, 189, 248, 0.3);
+}
+
+.card-beacon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+}
+
+.floating-3d-card.accent-gold .card-beacon {
+  background: #f59e0b;
+  box-shadow: 0 0 10px #f59e0b;
+}
+
+.floating-3d-card.accent-cyan .card-beacon {
+  background: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-role {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--maroon);
   font-weight: 700;
 }
+
+.card-name {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.card-domain {
+  font-size: 0.76rem;
+  color: var(--taupe);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 8. BOUTIQUE 3-PILLAR EXPERIENCE GRID (Reel Image 2 Match) */
+.boutique-hero-section {
+  padding: 100px 0;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+}
+
+.boutique-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  text-align: left;
+}
+
+.boutique-card {
+  padding: 34px 28px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(251, 248, 243, 0.75));
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.boutique-num {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #059669;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.boutique-card h3 {
+  font-family: var(--display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+
+.boutique-card p {
+  color: var(--taupe);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+  font-weight: 500;
+}
+
 
