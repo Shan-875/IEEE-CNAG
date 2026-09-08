@@ -2717,12 +2717,202 @@ img {
   line-height: 1.2;
 }
 
-.boutique-card p {
+/* 9. AUTOMATIC MOVING HIGHLIGHTS & 3D ROTATING ORB STYLES */
+.auto-moving-section {
+  padding: 80px 0 60px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(184, 137, 74, 0.06) 0%, transparent 70%);
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.auto-moving-header {
+  margin-bottom: 32px;
+}
+
+.motion-rail-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.motion-rail-track {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  animation: smoothRailDrift 38s linear infinite;
+}
+
+.motion-rail-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes smoothRailDrift {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.motion-card {
+  flex: 0 0 340px;
+  padding: 24px 22px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(251, 248, 243, 0.85));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motion-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--line-gold);
+  box-shadow: 0 16px 36px rgba(107, 29, 42, 0.12);
+  background: #ffffff;
+}
+
+.motion-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.motion-badge {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.motion-tag {
+  font-size: 0.72rem;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.motion-title {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.22;
+  margin: 0 0 8px;
+}
+
+.motion-desc {
   color: var(--taupe);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0 0 16px;
+  flex-grow: 1;
   font-weight: 500;
 }
+
+.motion-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  font-size: 0.78rem;
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.motion-arrow {
+  transition: transform 0.2s ease;
+}
+
+.motion-card:hover .motion-arrow {
+  transform: translateX(4px);
+  color: var(--gold-deep);
+}
+
+/* 10. KINETIC DOMAIN ROTATOR IN HERO */
+.kinetic-rotator-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.rotator-prefix {
+  font-size: 0.88rem;
+  color: var(--taupe);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rotator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 247, 242, 0.85));
+  border: 1px solid var(--line-gold);
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(184, 137, 74, 0.18);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rotator-badge.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.rotator-badge.is-fading {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+}
+
+.rotator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.rotator-text {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* 11. HERO 3D ORB POSITIONING */
+.hero-orb-wrapper {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-45%);
+  z-index: 1;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .hero-orb-wrapper {
+    display: none;
+  }
+}
+
 
 

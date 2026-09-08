@@ -17,6 +17,9 @@ import { Backwater } from "../components/Backwater";
 import { Reveal } from "../components/Reveal";
 import { ExecomModal } from "../components/ExecomModal";
 import { TiltCard } from "../components/TiltCard";
+import { Hero3DOrb } from "../components/Hero3DOrb";
+import { AutoMovingHighlights } from "../components/AutoMovingHighlights";
+import { KineticDomainRotator } from "../components/KineticDomainRotator";
 
 export function Home() {
   const [activeFilter, setActiveFilter] = useState<"divided" | "officer" | "member" | "advisor">("divided");
@@ -70,11 +73,17 @@ export function Home() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section with Automatic 3D Motion Orb and Kinetic Rotator */}
       <section className="hero">
         <NetworkCanvas />
         <div className="hero-veil" />
         <Backwater />
+
+        {/* Automatic 3D Rotating Mesh Orb */}
+        <div className="hero-orb-wrapper">
+          <Hero3DOrb size={440} />
+        </div>
+
         <div className="wrap hero-copy">
           <Reveal>
             <p className="eyebrow">
@@ -95,6 +104,11 @@ export function Home() {
               network of practice, counsel, and public service, empowered by technology and
               driven by excellence.
             </p>
+          </Reveal>
+
+          {/* Automatic Kinetic Domain Flipper */}
+          <Reveal delay={150}>
+            <KineticDomainRotator />
           </Reveal>
 
           <Reveal delay={180}>
@@ -142,6 +156,11 @@ export function Home() {
           ))}
         </div>
       </div>
+
+      {/* =======================================================
+          AUTOMATIC MOVING IMPORTANT DETAILS MOTION STREAM
+         ======================================================= */}
+      <AutoMovingHighlights />
 
       {/* About Brief */}
       <section className="section">
