@@ -28,7 +28,8 @@
   <body>
     <div id="root"></div>
     <script>
-      if (window.location.hostname.endsWith("github.io") && !window.location.pathname.includes("/dist/")) {
+      const sourceEntry = document.querySelector('script[src="/src/main.tsx"]');
+      if (window.location.hostname.endsWith("github.io") && sourceEntry) {
         window.location.replace("./dist/");
       }
     </script>
