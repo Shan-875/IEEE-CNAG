@@ -3,24 +3,22 @@ import { Link, useLocation } from "react-router-dom";
 
 export function FloatingDock() {
   const location = useLocation();
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState(location.pathname !== "/" || window.scrollY > 220);
 
   useEffect(() => {
+    if (location.pathname !== "/") {
+      setIsVisible(true);
+      return;
+    }
+
+    setIsVisible(window.scrollY > 220);
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > 100 && currentScrollY > lastScrollY && currentScrollY - lastScrollY > 10) {
-        // Scrolling down
-        setIsVisible(true); // Keep visible with compact dock
-      } else {
-        setIsVisible(true);
-      }
-      setLastScrollY(currentScrollY);
+      setIsVisible(window.scrollY > 220);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [location.pathname]);
 
   const links = [
     { to: "/", label: "Home", icon: "⌂" },

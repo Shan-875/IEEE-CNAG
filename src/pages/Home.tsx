@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   audiences,
@@ -22,8 +22,83 @@ import { AutoMovingHighlights } from "../components/AutoMovingHighlights";
 import { KineticDomainRotator } from "../components/KineticDomainRotator";
 
 export function Home() {
+  const heroRef = useRef<HTMLDivElement | null>(null);
   const [activeFilter, setActiveFilter] = useState<"divided" | "officer" | "member" | "advisor">("divided");
   const [selectedMember, setSelectedMember] = useState<CommitteeMember | null>(null);
+
+  useEffect(() => {
+    const wrapper = heroRef.current;
+    const inner = wrapper?.querySelector<HTMLElement>(".hero-motion-inner");
+    if (!wrapper || !inner) return;
+
+    const handleMove = (event: MouseEvent) => {
+      const bounds = wrapper.getBoundingClientRect();
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      const centerX = bounds.width / 2;
+      const centerY = bounds.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
+
+      wrapper.style.setProperty("--hero-pointer-x", `${x}px`);
+      wrapper.style.setProperty("--hero-pointer-y", `${y}px`);
+      inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      Array.from(inner.children).forEach((child, index) => {
+        const depth = 10 + index * 5;
+        const translateX = ((x - centerX) / centerX) * depth;
+        const translateY = ((y - centerY) / centerY) * depth;
+        (child as HTMLElement).style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+      });
+    };
+
+    const reset = () => {
+      inner.style.transform = "rotateX(0) rotateY(0)";
+      wrapper.style.setProperty("--hero-pointer-x", "50%");
+      wrapper.style.setProperty("--hero-pointer-y", "50%");
+      Array.from(inner.children).forEach((child) => {
+        (child as HTMLElement).style.transform = "translateZ(0)";
+      });
+    };
+
+    wrapper.addEventListener("mousemove", handleMove);
+    wrapper.addEventListener("mouseleave", reset);
+    return () => {
+      wrapper.removeEventListener("mousemove", handleMove);
+      wrapper.removeEventListener("mouseleave", reset);
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+      document.documentElement.style.setProperty("--page-progress", `${Math.min(1, Math.max(0, progress))}`);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
+
+  const handleHeroPointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    const bounds = hero.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 14;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 10;
+    hero.style.setProperty("--slogan-x", `${x.toFixed(2)}px`);
+    hero.style.setProperty("--slogan-y", `${y.toFixed(2)}px`);
+  };
+
+  const resetHeroPointer = () => {
+    heroRef.current?.style.setProperty("--slogan-x", "0px");
+    heroRef.current?.style.setProperty("--slogan-y", "0px");
+  };
 
   const renderMemberCard = (member: CommitteeMember, i: number) => (
     <Reveal key={member.id} delay={(i % 4) * 70}>
@@ -73,18 +148,22 @@ export function Home() {
 
   return (
     <>
-      {/* Hero Section with Automatic 3D Motion Orb and Kinetic Rotator */}
-      <section className="hero">
-        <NetworkCanvas />
-        <div className="hero-veil" />
-        <Backwater />
+      <div className="page-progress" aria-hidden="true"><span /></div>
+      <div className="hero-motion-wrapper" ref={heroRef}>
+        <div className="hero-motion-inner">
+          <section
+            className="hero"
+            onPointerMove={handleHeroPointerMove}
+            onPointerLeave={resetHeroPointer}
+          >
+            <NetworkCanvas />
+            <div className="hero-veil" />
+            <Backwater />
+            <div className="hero-orb-wrapper">
+              <Hero3DOrb size={440} />
+            </div>
 
-        {/* Automatic 3D Rotating Mesh Orb */}
-        <div className="hero-orb-wrapper">
-          <Hero3DOrb size={440} />
-        </div>
-
-        <div className="wrap hero-copy">
+          <div className="wrap hero-copy">
           <Reveal>
             <p className="eyebrow">
               <span className="pulse-dot" />
@@ -105,48 +184,27 @@ export function Home() {
               driven by excellence.
             </p>
           </Reveal>
-
-          {/* Automatic Kinetic Domain Flipper */}
           <Reveal delay={150}>
             <KineticDomainRotator />
           </Reveal>
-
           <Reveal delay={180}>
             <div className="hero-actions">
-              <Link to="/join" className="btn gold">
-                Join as Consultant →
-              </Link>
-              <Link to="/consultants" className="btn ghost">
-                Find a Consultant
-              </Link>
-              <a href="#execom-showcase" className="btn ghost">
-                Executive Leadership ↓
-              </a>
+              <Link to="/join" className="btn gold">Join as Consultant →</Link>
+              <Link to="/consultants" className="btn ghost">Find a Consultant</Link>
             </div>
           </Reveal>
-
           <Reveal delay={240}>
             <div className="hero-meta">
-              <div>
-                <strong>250+</strong>
-                <span>Consultants & Experts</span>
-              </div>
-              <div>
-                <strong>12 Domains</strong>
-                <span>Technical Practice Areas</span>
-              </div>
-              <div>
-                <strong>100%</strong>
-                <span>Peer-Reviewed Advisory</span>
-              </div>
-              <div>
-                <strong>2024–2025</strong>
-                <span>Current Active Term</span>
-              </div>
+              <div><strong>250+</strong><span>Consultants & Experts</span></div>
+              <div><strong>12 Domains</strong><span>Technical Practice Areas</span></div>
+              <div><strong>100%</strong><span>Peer-Reviewed Advisory</span></div>
+              <div><strong>2024–2025</strong><span>Current Active Term</span></div>
             </div>
           </Reveal>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       {/* Domain Ticker Marquee */}
       <div className="marquee" aria-hidden="true">
@@ -157,9 +215,6 @@ export function Home() {
         </div>
       </div>
 
-      {/* =======================================================
-          AUTOMATIC MOVING IMPORTANT DETAILS MOTION STREAM
-         ======================================================= */}
       <AutoMovingHighlights />
 
       {/* About Brief */}
@@ -359,7 +414,7 @@ export function Home() {
           </div>
 
           <div className="event-rail">
-            {events.slice(0, 4).map((e, i) => (
+            {events.slice(0, 3).map((e, i) => (
               <Reveal key={e.id} delay={i * 80}>
                 <TiltCard maxRotation={8} glowColor="green" hasLaser={true} className="event-card">
                   <div className="event-img">
@@ -392,23 +447,10 @@ export function Home() {
               or an organization seeking certified technical counsel, CNAG-KS provides the recognized accreditation and network you need.
             </p>
 
-            <div className="cta-perks">
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>Accredited Roster of Independent Engineering Consultants</div>
-              </div>
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>Access to Multi-Disciplinary Public & Private Project Syndicates</div>
-              </div>
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>ConsulTalks Keynote Speaking & Thought Leadership Platform</div>
-              </div>
-              <div className="cta-perk">
-                <span>❖</span>
-                <div>Ethical Practice Charters & Standard IEEE Contract Templates</div>
-              </div>
+            <div className="cta-signal" aria-label="CNAG member benefits">
+              <span><strong>250+</strong> verified experts</span>
+              <span><strong>12</strong> practice domains</span>
+              <span><strong>1</strong> trusted network</span>
             </div>
 
             <div className="cta-actions">

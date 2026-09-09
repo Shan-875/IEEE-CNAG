@@ -21,8 +21,7 @@ export function Header() {
         <div className="wrap nav-inner">
           <Link to="/" className="brand" onClick={() => setOpen(false)}>
             <span className="brand-mark" aria-hidden="true">
-              <span className="brand-orbit" />
-              <span className="brand-core" />
+              <img src="/cnag-mark.svg" alt="" />
             </span>
             <span className="brand-copy">
               <strong>IEEE Kerala Section</strong>

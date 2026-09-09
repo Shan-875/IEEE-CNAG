@@ -3,10 +3,10 @@ export function Backwater() {
     <svg className="backwater" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
       <defs>
         <linearGradient id="bw" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="#6B1D2A" stopOpacity="0" />
-          <stop offset="0.35" stopColor="#B8894A" stopOpacity="0.9" />
-          <stop offset="0.7" stopColor="#8B2334" stopOpacity="0.75" />
-          <stop offset="1" stopColor="#6B1D2A" stopOpacity="0" />
+          <stop offset="0" stopColor="#00629B" stopOpacity="0" />
+          <stop offset="0.35" stopColor="#72B8DC" stopOpacity="0.9" />
+          <stop offset="0.7" stopColor="#0077B5" stopOpacity="0.75" />
+          <stop offset="1" stopColor="#00629B" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path
@@ -26,7 +26,7 @@ export function Backwater() {
       <path
         className="bw-path c"
         fill="none"
-        stroke="#B8894A"
+        stroke="#72B8DC"
         strokeOpacity="0.42"
         strokeWidth="0.85"
         d="M-20,80 C220,130 400,20 620,90 C840,160 980,40 1220,100 C1360,140 1460,70 1540,90"
