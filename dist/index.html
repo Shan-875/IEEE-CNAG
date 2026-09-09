@@ -28,6 +28,11 @@
     <link rel="stylesheet" crossorigin href="./assets/index-NtRf7ygN.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+    <script>
+      if (window.location.hostname.endsWith("github.io") && !window.location.pathname.includes("/dist/")) {
+        window.location.replace("./dist/");
+      }
+    </script>
   </body>
 </html>

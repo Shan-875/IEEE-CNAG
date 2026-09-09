@@ -27,6 +27,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if (window.location.hostname.endsWith("github.io") && !window.location.pathname.includes("/dist/")) {
+        window.location.replace("./dist/");
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
