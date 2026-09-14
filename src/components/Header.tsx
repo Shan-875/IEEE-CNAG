@@ -45,11 +45,13 @@ export function Header() {
       </div>
 
       <div className="nav-shell">
-        <div className="nav-scan" aria-hidden="true" />
+        <div className="nav-scan-wrapper" aria-hidden="true">
+          <div className="nav-scan" />
+        </div>
         <div className="wrap nav-inner">
           <Link to="/" className="brand" onClick={() => setOpen(false)}>
             <span className="brand-mark" aria-hidden="true">
-              <img src={`${import.meta.env.BASE_URL}cnag-mark.svg`} alt="" />
+              <img src={`${import.meta.env.BASE_URL}cnag-mark.svg`} alt="CNAG Logo" />
             </span>
             <span className="brand-copy">
               <strong>IEEE Kerala Section</strong>
@@ -57,34 +59,83 @@ export function Header() {
             </span>
           </Link>
 
+          {/* Desktop Navigation */}
+          <nav className="desktop-nav nav" aria-label="Desktop Navigation">
+            {nav.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === "/"}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <Link to="/join" className="nav-cta">
+              Join CNAG
+            </Link>
+          </nav>
+
+          {/* Mobile 3-line hamburger menu toggle button in right top corner */}
           <button
             type="button"
             className={`menu-btn ${open ? "is-open" : ""}`}
             aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={open}
-            aria-controls="primary-nav"
+            aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="menu-line" />
             <span className="menu-line" />
             <span className="menu-line" />
           </button>
+        </div>
+      </div>
 
-          <nav id="primary-nav" className={`nav ${open ? "is-open" : ""}`}>
+      {/* Dedicated Mobile Navigation Drawer */}
+      <div
+        id="mobile-nav"
+        className={`mobile-nav-drawer ${open ? "is-open" : ""}`}
+        aria-hidden={!open}
+      >
+        <div className="mobile-nav-scroll">
+          <div className="mobile-nav-links">
             {nav.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.to === "/"}
+                className="mobile-nav-link"
                 onClick={() => setOpen(false)}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span className="mobile-arrow" aria-hidden="true">→</span>
               </NavLink>
             ))}
-            <Link to="/join" className="nav-cta" onClick={() => setOpen(false)}>
+            <Link
+              to="/join"
+              className="mobile-nav-cta"
+              onClick={() => setOpen(false)}
+            >
               Join CNAG
             </Link>
-          </nav>
+          </div>
+
+          <div className="mobile-nav-footer">
+            <span className="mobile-footer-title">IEEE Quick Links</span>
+            <div className="mobile-ieee-pills">
+              {ieeeLinks.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
