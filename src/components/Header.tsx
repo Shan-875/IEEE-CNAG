@@ -1,12 +1,39 @@
-import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { ieeeLinks, nav } from "../data";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu whenever the route changes
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add("nav-open");
+    } else {
+      document.body.classList.remove("nav-open");
+    }
+    return () => {
+      document.body.classList.remove("nav-open");
+    };
+  }, [open]);
 
   return (
-    <header className="site-head">
+    <header className={`site-head ${open ? "is-nav-open" : ""}`}>
       <div className="ieee-bar">
         <div className="wrap ieee-bar-inner">
           {ieeeLinks.map((l) => (
@@ -31,16 +58,19 @@ export function Header() {
           </Link>
 
           <button
+            type="button"
             className={`menu-btn ${open ? "is-open" : ""}`}
-            aria-label="Toggle navigation menu"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={open}
+            aria-controls="primary-nav"
             onClick={() => setOpen((v) => !v)}
           >
-            <span />
-            <span />
+            <span className="menu-line" />
+            <span className="menu-line" />
+            <span className="menu-line" />
           </button>
 
-          <nav className={`nav ${open ? "is-open" : ""}`}>
+          <nav id="primary-nav" className={`nav ${open ? "is-open" : ""}`}>
             {nav.map((item) => (
               <NavLink
                 key={item.to}
@@ -57,6 +87,14 @@ export function Header() {
           </nav>
         </div>
       </div>
+
+      {open && (
+        <div
+          className="nav-backdrop"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </header>
   );
 }
