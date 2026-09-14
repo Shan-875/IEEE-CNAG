@@ -429,8 +429,8 @@ h1 { max-width: 680px; font-size: clamp(2.8rem, 6vw, 5.2rem); }
   .cta-content { gap: 28px; }
   .floating-dock-wrapper { right: 12px; bottom: 12px; left: 12px; }
   .floating-dock-pill { width: 100%; }
-  .dock-links { width: 100%; justify-content: space-between; }
-  .dock-link { flex: 1; padding-inline: 5px; }
+  .dock-links { display: grid; width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; }
+  .dock-link { min-width: 0; min-height: 32px; padding: 6px 4px; }
   .site-foot .foot-grid > div:not(:first-child)::before { display: none; }
   .page [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
   .page [style*="grid-template-columns"] > * { min-width: 0; }
