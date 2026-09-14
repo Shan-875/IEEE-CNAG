@@ -6,6 +6,8 @@ export function KineticDomainRotator() {
   const [fade, setFade] = useState(true);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {

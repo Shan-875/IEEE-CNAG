@@ -10,6 +10,7 @@ import { Execom } from "./pages/Execom";
 import { Home } from "./pages/Home";
 import { Join } from "./pages/Join";
 import { Resources } from "./pages/Resources";
+import { Contact } from "./pages/Contact";
 
 import { FloatingDock } from "./components/FloatingDock";
 
@@ -40,6 +41,7 @@ export default function App() {
             <Route path="/consultants" element={<Consultants />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
           <FloatingDock />
           <Footer />

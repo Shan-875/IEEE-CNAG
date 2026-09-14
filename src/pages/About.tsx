@@ -70,10 +70,6 @@ export function About() {
             <strong>12 Domains</strong>
             <span>Accredited Engineering Practices</span>
           </div>
-          <div className="fact-badge">
-            <strong>100% Peer-Reviewed</strong>
-            <span>IEEE Standards Compliance</span>
-          </div>
         </div>
       </header>
 

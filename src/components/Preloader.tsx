@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Hero3DOrb } from "./Hero3DOrb";
 
 export function Preloader({ onDone }: { onDone: () => void }) {
   const [out, setOut] = useState(false);
@@ -15,10 +16,9 @@ export function Preloader({ onDone }: { onDone: () => void }) {
 
   return (
     <div className={`preloader ${out ? "is-out" : ""}`}>
+      <Hero3DOrb className="preloader-orb" size={460} />
       <div className="pre-core">
-        <div className="pre-ring" />
-        <div className="pre-ring two" />
-        <div className="pre-ring three" />
+        <div className="pre-mark">IEEE</div>
         <p>IEEE Kerala Section</p>
         <h1>CNAG</h1>
         <span>Consultants’ Network Affinity Group</span>

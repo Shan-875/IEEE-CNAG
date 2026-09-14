@@ -29,7 +29,7 @@ export const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/execom", label: "Executive Committee" },
-  { to: "/consultants", label: "Find Consultant" },
+  { to: "/consultants", label: "Find a Consultant" },
   { to: "/events", label: "ConsulTalks & Events" },
   { to: "/resources", label: "Resources" },
 ];

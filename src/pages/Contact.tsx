@@ -1,0 +1,5 @@
+import { Link } from "react-router-dom";
+
+export function Contact() {
+  return <main className="page"><header className="page-hero"><p className="eyebrow">IEEE Kerala Section · CNAG</p><h1>Contact the network.</h1><p className="lede">For membership, roster, programme, or collaboration enquiries, write to the Section Secretariat.</p></header><section className="section"><div className="wrap contact-layout"><div><p className="eyebrow">Section headquarters</p><h2>HarmonIEEE</h2><address>1st Floor, Cherian’s Square<br />Ambujavilasam Road, PB77, GPO<br />Thiruvananthapuram, Kerala 695001, India</address><a className="contact-email" href="mailto:ieeekerala@gmail.com">ieeekerala@gmail.com</a></div><div className="contact-note"><p>CNAG is part of the IEEE Kerala Section professional community. Use the official section channels for current announcements and programme information.</p><a className="button button-primary" href="mailto:ieeekerala@gmail.com">Email the Secretariat</a><Link className="text-link" to="/join">Learn about getting involved →</Link></div></div></section></main>;
+}

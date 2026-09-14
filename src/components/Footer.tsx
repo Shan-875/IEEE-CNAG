@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 export function Footer() {
   return (
     <footer className="site-foot">
+      <div className="footer-signal" aria-hidden="true"><span /><span /><span /><span /><span /></div>
       <div className="wrap foot-grid">
         <div>
           <p className="foot-kicker">IEEE Kerala Section</p>

@@ -18,6 +18,7 @@ export function Header() {
       </div>
 
       <div className="nav-shell">
+        <div className="nav-scan" aria-hidden="true" />
         <div className="wrap nav-inner">
           <Link to="/" className="brand" onClick={() => setOpen(false)}>
             <span className="brand-mark" aria-hidden="true">

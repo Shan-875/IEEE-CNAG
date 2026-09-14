@@ -21,12 +21,12 @@ export function FloatingDock() {
   }, [location.pathname]);
 
   const links = [
-    { to: "/", label: "Home", icon: "⌂" },
-    { to: "/about", label: "About", icon: "✦" },
-    { to: "/execom", label: "Execom", icon: "❖" },
-    { to: "/consultants", label: "Directory", icon: "◈" },
-    { to: "/events", label: "ConsulTalks", icon: "⚡" },
-    { to: "/join", label: "Enrol", icon: "→", highlight: true },
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About" },
+    { to: "/execom", label: "Committee" },
+    { to: "/consultants", label: "Directory" },
+    { to: "/events", label: "Events" },
+    { to: "/join", label: "Enrol", highlight: true },
   ];
 
   return (
@@ -35,11 +35,6 @@ export function FloatingDock() {
       aria-label="Quick Dock Navigation"
     >
       <div className="floating-dock-pill">
-        <div className="dock-status-beacon" title="IEEE CNAG Kerala Section Active Roster">
-          <span className="beacon-pulse" />
-          <span className="beacon-dot" />
-        </div>
-
         <div className="dock-links">
           {links.map((link) => {
             const isActive = location.pathname === link.to;
@@ -49,7 +44,6 @@ export function FloatingDock() {
                 to={link.to}
                 className={`dock-link ${isActive ? "active" : ""} ${link.highlight ? "dock-cta" : ""}`}
               >
-                <span className="dock-icon">{link.icon}</span>
                 <span className="dock-label">{link.label}</span>
                 {isActive && <span className="dock-active-glow" />}
               </Link>

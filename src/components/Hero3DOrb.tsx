@@ -16,6 +16,11 @@ export function Hero3DOrb({ className = "", size = 380 }: Hero3DOrbProps) {
 
     let animId: number;
     let time = 0;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const radius = size * 0.34;
     const points: Array<{ x: number; y: number; z: number; size: number; color: string }> = [];
     const gridLines: Array<Array<{ x: number; y: number; z: number }>> = [];
@@ -62,10 +67,7 @@ export function Hero3DOrb({ className = "", size = 380 }: Hero3DOrbProps) {
     }
 
     const render = () => {
-      time += 0.012; // Automatic continuous rotation
-      canvas.width = size * window.devicePixelRatio;
-      canvas.height = size * window.devicePixelRatio;
-      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+      time += reduce ? 0 : 0.012;
 
       ctx.clearRect(0, 0, size, size);
 
@@ -142,7 +144,7 @@ export function Hero3DOrb({ className = "", size = 380 }: Hero3DOrbProps) {
       }
 
       ctx.globalAlpha = 1.0;
-      animId = requestAnimationFrame(render);
+      if (!reduce) animId = requestAnimationFrame(render);
     };
 
     render();
