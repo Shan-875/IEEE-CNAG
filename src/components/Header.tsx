@@ -38,6 +38,7 @@ export function Header() {
           >
             <span />
             <span />
+          <span />
           </button>
 
           <nav className={`nav ${open ? "is-open" : ""}`}>
