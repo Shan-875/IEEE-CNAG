@@ -98,6 +98,23 @@ export const domains = [
 
 export const professionalExecom: CommitteeMember[] = [
   {
+    id: "ak-shuhair",
+    name: "Er. A. K. Shuhair",
+    role: "Advisor",
+    category: "advisor",
+    tier: "professional",
+    title: "Distinguished Advisor, IEEE CNAG Kerala Section",
+    affiliation: "Former Chief Engineer, KSEB | Senior Power & Energy Consultant",
+    ieeeGrade: "Senior Member, IEEE",
+    year: "2026–2027",
+    initials: "AKS",
+    accentColor: "from-amber-600 to-yellow-600",
+    domains: ["Power Systems", "Grid Reliability", "Energy Policy", "Substation Automation"],
+    bio: "Distinguished power systems leader with over 3 decades of spearheading power transmission, grid modernization, and electrical safety standards across Kerala's energy landscape.",
+    email: "ak.shuhair@ieee.org",
+    linkedin: "https://www.linkedin.com/in/a-suhair",
+  },
+  {
     id: "cm-varughese",
     name: "Er. C. M. Varughese",
     role: "Chair",
@@ -150,23 +167,6 @@ export const professionalExecom: CommitteeMember[] = [
     bio: "Secretary of IEEE CNAG Kerala Section, overseeing affinity group operations, secretarial reporting, industry partnerships, and member services.",
     email: "muhammed.haseem@ieee.org",
     linkedin: "https://www.linkedin.com/in/muhammed-haseem",
-  },
-  {
-    id: "ak-shuhair",
-    name: "Er. A. K. Shuhair",
-    role: "Advisor",
-    category: "advisor",
-    tier: "professional",
-    title: "Distinguished Advisor, IEEE CNAG Kerala Section",
-    affiliation: "Former Chief Engineer, KSEB | Senior Power & Energy Consultant",
-    ieeeGrade: "Senior Member, IEEE",
-    year: "2026–2027",
-    initials: "AKS",
-    accentColor: "from-amber-600 to-yellow-600",
-    domains: ["Power Systems", "Grid Reliability", "Energy Policy", "Substation Automation"],
-    bio: "Distinguished power systems leader with over 3 decades of spearheading power transmission, grid modernization, and electrical safety standards across Kerala's energy landscape.",
-    email: "ak.shuhair@ieee.org",
-    linkedin: "https://www.linkedin.com/in/a-suhair",
   },
 ];
 
