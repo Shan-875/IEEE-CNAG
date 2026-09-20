@@ -17,13 +17,17 @@ export function ExecomModal({ member, onClose }: ExecomModalProps) {
 
         <div className="modal-header">
           <div className="modal-avatar">
-            <span className="modal-initials">{member.initials}</span>
+            {member.image ? (
+              <img src={member.image} alt={member.name} className="modal-avatar-img" />
+            ) : (
+              <span className="modal-initials">{member.initials}</span>
+            )}
           </div>
           <div className="modal-title-group">
             <span className="modal-badge">{member.role}</span>
             <h3 className="modal-name">{member.name}</h3>
             <p className="modal-affiliation">{member.affiliation}</p>
-            <span className="modal-grade">{member.ieeeGrade} · Term {member.year || "2024–2025"}</span>
+            <span className="modal-grade">{member.ieeeGrade} · Term {member.year || "2026–2027"}</span>
           </div>
         </div>
 
@@ -48,13 +52,37 @@ export function ExecomModal({ member, onClose }: ExecomModalProps) {
             </div>
           )}
 
+          {(member.phone || member.email) && (
+            <div className="modal-section">
+              <h4>Direct Contact</h4>
+              <div className="modal-contact-details">
+                {member.phone && (
+                  <p className="modal-contact-line">
+                    <span className="modal-contact-label">Phone:</span>
+                    <a href={`tel:${member.phone.replace(/[^0-9+]/g, "")}`} className="modal-contact-link">
+                      📞 {member.phone}
+                    </a>
+                  </p>
+                )}
+                {member.email && (
+                  <p className="modal-contact-line">
+                    <span className="modal-contact-label">Email:</span>
+                    <a href={`mailto:${member.email}?subject=IEEE%20CNAG%20Kerala%20Inquiry`} className="modal-contact-link">
+                      ✉️ {member.email}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="modal-actions">
-            {member.email && (
+            {member.phone && (
               <a
-                href={`mailto:${member.email}?subject=IEEE%20CNAG%20Kerala%20Consultancy%20Inquiry`}
-                className="btn gold"
+                href={`tel:${member.phone.replace(/[^0-9+]/g, "")}`}
+                className="btn btn-primary"
               >
-                Contact Member
+                Call: {member.phone}
               </a>
             )}
             {member.linkedin && (
@@ -62,12 +90,12 @@ export function ExecomModal({ member, onClose }: ExecomModalProps) {
                 href={member.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="btn ghost"
+                className="btn btn-ghost"
               >
                 LinkedIn Profile ↗
               </a>
             )}
-            <button className="btn ghost" onClick={onClose}>
+            <button className="btn btn-ghost" onClick={onClose}>
               Done
             </button>
           </div>

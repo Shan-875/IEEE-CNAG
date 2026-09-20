@@ -5,7 +5,12 @@ export function Footer() {
     <footer className="site-foot">
       <div className="footer-signal" aria-hidden="true"><span /><span /><span /><span /><span /></div>
       <div className="wrap foot-grid">
-        <div>
+        <div className="foot-brand">
+          <img
+            src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`}
+            alt="IEEE - Advancing Technology for Humanity"
+            className="foot-logo"
+          />
           <p className="foot-kicker">IEEE Kerala Section</p>
           <h2>Consultants’ Network Affinity Group (CNAG)</h2>
           <p className="foot-lead">

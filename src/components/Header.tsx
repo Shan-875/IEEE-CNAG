@@ -49,10 +49,13 @@ export function Header() {
           <div className="nav-scan" />
         </div>
         <div className="wrap nav-inner">
-          <Link to="/" className="brand" onClick={() => setOpen(false)}>
-            <span className="brand-mark" aria-hidden="true">
-              <img src={`${import.meta.env.BASE_URL}cnag-mark.svg`} alt="CNAG Logo" />
-            </span>
+          <Link to="/" className="brand" onClick={() => setOpen(false)} aria-label="IEEE Kerala Section CNAG Home">
+            <img
+              src={`${import.meta.env.BASE_URL}ieee-logo.svg`}
+              alt="IEEE - Advancing Technology for Humanity"
+              className="brand-ieee-logo"
+            />
+            <span className="brand-sep" aria-hidden="true" />
             <span className="brand-copy">
               <strong>IEEE Kerala Section</strong>
               <em>Consultants’ Network · CNAG</em>
@@ -98,6 +101,17 @@ export function Header() {
         aria-hidden={!open}
       >
         <div className="mobile-nav-scroll">
+          <div className="mobile-nav-brand">
+            <img
+              src={`${import.meta.env.BASE_URL}ieee-logo.svg`}
+              alt="IEEE Logo"
+              className="mobile-brand-logo"
+            />
+            <div className="mobile-brand-text">
+              <strong>IEEE Kerala Section</strong>
+              <span>Consultants’ Network · CNAG</span>
+            </div>
+          </div>
           <div className="mobile-nav-links">
             {nav.map((item) => (
               <NavLink

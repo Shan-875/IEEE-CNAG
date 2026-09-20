@@ -18,7 +18,11 @@ export function Preloader({ onDone }: { onDone: () => void }) {
     <div className={`preloader ${out ? "is-out" : ""}`}>
       <Hero3DOrb className="preloader-orb" size={460} />
       <div className="pre-core">
-        <div className="pre-mark">IEEE</div>
+        <img
+          src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`}
+          alt="IEEE - Advancing Technology for Humanity"
+          className="pre-full-logo"
+        />
         <p>IEEE Kerala Section</p>
         <h1>CNAG</h1>
         <span>Consultants’ Network Affinity Group</span>

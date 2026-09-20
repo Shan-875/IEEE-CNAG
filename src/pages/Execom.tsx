@@ -1,9 +1,8 @@
 import { useMemo, useState } from "react";
 import {
+  professionalExecom,
+  studentExecom,
   executiveCommittee,
-  officeBearers,
-  generalExecomMembers,
-  seniorAdvisors,
   type CommitteeMember,
 } from "../data";
 import { Reveal } from "../components/Reveal";
@@ -13,7 +12,7 @@ import { LaserLine } from "../components/LaserLine";
 
 export function Execom() {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState<"divided" | "officer" | "member" | "advisor">("divided");
+  const [activeTab, setActiveTab] = useState<"all" | "professional" | "student">("all");
   const [selectedMember, setSelectedMember] = useState<CommitteeMember | null>(null);
 
   const filterList = (list: CommitteeMember[]) => {
@@ -28,18 +27,17 @@ export function Execom() {
     );
   };
 
-  const filteredOfficers = useMemo(() => filterList(officeBearers), [search]);
-  const filteredMembers = useMemo(() => filterList(generalExecomMembers), [search]);
-  const filteredAdvisors = useMemo(() => filterList(seniorAdvisors), [search]);
+  const filteredProfessional = useMemo(() => filterList(professionalExecom), [search]);
+  const filteredStudent = useMemo(() => filterList(studentExecom), [search]);
   const allFiltered = useMemo(() => filterList(executiveCommittee), [search]);
 
   const renderCard = (member: CommitteeMember, i: number) => (
     <Reveal key={member.id} delay={(i % 4) * 60}>
       <TiltCard
-        maxRotation={12}
-        glowColor={member.category === "officer" ? "gold" : "green"}
+        maxRotation={10}
+        glowColor={member.category === "officer" ? "gold" : member.category === "advisor" ? "maroon" : "green"}
         hasLaser={true}
-        className={`execom-card ${member.category}`}
+        className="execom-card"
         onClick={() => setSelectedMember(member)}
         tabIndex={0}
         role="button"
@@ -51,29 +49,70 @@ export function Execom() {
           }
         }}
       >
-        <div className="execom-top">
-          <div className="execom-avatar">
-            <span>{member.initials}</span>
-          </div>
-          <div>
+        <div className="execom-card-media">
+          {member.image ? (
+            <img src={member.image} alt={member.name} className="execom-card-img" />
+          ) : (
+            <div className="execom-card-placeholder">
+              <span>{member.initials}</span>
+            </div>
+          )}
+          <div className="execom-card-overlay">
             <span className="execom-role-badge">{member.role}</span>
           </div>
         </div>
 
-        <h3 className="execom-name">{member.name}</h3>
-        <p className="execom-affiliation">{member.affiliation}</p>
+        <div className="execom-card-body">
+          <h3 className="execom-name">{member.name}</h3>
+          <p className="execom-affiliation">{member.affiliation}</p>
 
-        <div className="execom-tags">
-          {member.domains.slice(0, 3).map((d) => (
-            <span key={d} className="execom-tag">
-              #{d}
-            </span>
-          ))}
-        </div>
+          <div className="execom-contact-strip">
+            {member.phone && (
+              <a
+                href={`tel:${member.phone.replace(/[^0-9+]/g, "")}`}
+                onClick={(e) => e.stopPropagation()}
+                className="execom-contact-chip execom-phone-chip"
+                title={`Call ${member.name}`}
+              >
+                📞 {member.phone}
+              </a>
+            )}
+            {member.email && (
+              <a
+                href={`mailto:${member.email}?subject=IEEE%20CNAG%20Kerala%20Inquiry`}
+                onClick={(e) => e.stopPropagation()}
+                className="execom-contact-chip execom-email-chip"
+                title={`Email ${member.name}: ${member.email}`}
+              >
+                ✉️ {member.email}
+              </a>
+            )}
+            {member.linkedin && (
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="execom-contact-chip execom-linkedin-chip"
+                title={`${member.name} on LinkedIn`}
+              >
+                in LinkedIn
+              </a>
+            )}
+          </div>
 
-        <div className="execom-footer">
-          <span>{member.ieeeGrade}</span>
-          <span className="execom-view-btn">View Profile →</span>
+          <div className="execom-tags">
+            {member.domains.slice(0, 3).map((d) => (
+              <span key={d} className="execom-tag">
+                #{d}
+              </span>
+            ))}
+          </div>
+
+          <div className="execom-footer">
+            <span>{member.ieeeGrade}</span>
+            <span className="execom-view-btn">View Profile →</span>
+          </div>
         </div>
       </TiltCard>
     </Reveal>
@@ -83,10 +122,10 @@ export function Execom() {
     <main className="page">
       <header className="page-hero">
         <p className="eyebrow">Governance & Structure</p>
-        <h1 className="display">Executive Committee 2024–2025</h1>
+        <h1 className="display">Executive Committee 2026–2027</h1>
         <p className="lede">
           Governing council of the IEEE Kerala Section Consultants’ Network Affinity Group (CNAG-KS),
-          comprising elected Office Bearers, Executive Committee members, and Senior Advisory mentors.
+          comprising the Professional Executive Committee and Student Executive Committee coordinators.
         </p>
 
         <LaserLine color="gold" width="260px" />
@@ -96,106 +135,87 @@ export function Execom() {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by name, role (Chair, Secretary...), or domain (Power, VLSI, ESG)..."
+            placeholder="Search by name, role (Chair, Secretary, Coordinator...), or domain..."
           />
         </label>
       </header>
 
       <section className="section">
         <div className="wrap">
-          {/* Filter Tabs */}
+          {/* Category Filter Tabs */}
           <div className="filter-tabs" style={{ marginBottom: "36px" }}>
             <button
-              className={`filter-tab ${activeCategory === "divided" ? "active" : ""}`}
-              onClick={() => setActiveCategory("divided")}
+              className={`filter-tab ${activeTab === "all" ? "active" : ""}`}
+              onClick={() => setActiveTab("all")}
             >
-              Divided View ({executiveCommittee.length})
+              All Committee Members ({executiveCommittee.length})
             </button>
             <button
-              className={`filter-tab ${activeCategory === "officer" ? "active" : ""}`}
-              onClick={() => setActiveCategory("officer")}
+              className={`filter-tab ${activeTab === "professional" ? "active" : ""}`}
+              onClick={() => setActiveTab("professional")}
             >
-              Office Bearers · Core Leadership (4)
+              Professional Execom ({professionalExecom.length})
             </button>
             <button
-              className={`filter-tab ${activeCategory === "member" ? "active" : ""}`}
-              onClick={() => setActiveCategory("member")}
+              className={`filter-tab ${activeTab === "student" ? "active" : ""}`}
+              onClick={() => setActiveTab("student")}
             >
-              Executive Committee Members (6)
-            </button>
-            <button
-              className={`filter-tab ${activeCategory === "advisor" ? "active" : ""}`}
-              onClick={() => setActiveCategory("advisor")}
-            >
-              Senior Advisors & Past Chairs (2)
+              Student Execom ({studentExecom.length})
             </button>
           </div>
 
-          {/* Divided View */}
-          {activeCategory === "divided" && (
+          {/* All Tab: Professional Execom first, then Student Execom below */}
+          {activeTab === "all" && (
             <>
-              {/* Core Office Bearers */}
-              {filteredOfficers.length > 0 && (
-                <div style={{ marginBottom: "50px" }}>
-                  <Reveal>
-                    <div className="execom-subheading">
-                      <h3>Core Leadership · Office Bearers (2024–2025)</h3>
-                      <span>Executive Council</span>
-                    </div>
-                  </Reveal>
-                  <div className="execom-officer-grid">
-                    {filteredOfficers.map((m, i) => renderCard(m, i))}
+              {filteredProfessional.length > 0 && (
+                <div style={{ marginBottom: "54px" }}>
+                  <div className="execom-subheading">
+                    <h3>Professional Executive Committee (2026–2027)</h3>
+                    <span>Core Section Leadership</span>
+                  </div>
+                  <div className="execom-lead-grid">
+                    {filteredProfessional.map((m, i) => renderCard(m, i))}
                   </div>
                 </div>
               )}
 
-              {/* Executive Committee Members */}
-              {filteredMembers.length > 0 && (
-                <div style={{ marginBottom: "50px" }}>
-                  <Reveal>
-                    <div className="execom-subheading">
-                      <h3>Executive Committee Members</h3>
-                      <span>Domain Directors</span>
-                    </div>
-                  </Reveal>
-                  <div className="execom-member-grid">
-                    {filteredMembers.map((m, i) => renderCard(m, i))}
-                  </div>
-                </div>
-              )}
-
-              {/* Senior Advisory Board */}
-              {filteredAdvisors.length > 0 && (
+              {filteredStudent.length > 0 && (
                 <div>
-                  <Reveal>
-                    <div className="execom-subheading">
-                      <h3>Senior Advisory Board & Mentors</h3>
-                      <span>Policy Advisors</span>
-                    </div>
-                  </Reveal>
-                  <div className="execom-member-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                    {filteredAdvisors.map((m, i) => renderCard(m, i))}
+                  <div className="execom-subheading">
+                    <h3>Student Executive Committee (2026–2027)</h3>
+                    <span>Coordinators & Web Team</span>
+                  </div>
+                  <div className="execom-lead-grid">
+                    {filteredStudent.map((m, i) => renderCard(m, i))}
                   </div>
                 </div>
               )}
             </>
           )}
 
-          {activeCategory === "officer" && (
-            <div className="execom-officer-grid">
-              {filteredOfficers.map((m, i) => renderCard(m, i))}
+          {/* Professional Execom Tab */}
+          {activeTab === "professional" && (
+            <div>
+              <div className="execom-subheading">
+                <h3>Professional Executive Committee (2026–2027)</h3>
+                <span>Core Section Leadership</span>
+              </div>
+              <div className="execom-lead-grid">
+                {filteredProfessional.map((m, i) => renderCard(m, i))}
+              </div>
             </div>
           )}
 
-          {activeCategory === "member" && (
-            <div className="execom-member-grid">
-              {filteredMembers.map((m, i) => renderCard(m, i))}
-            </div>
-          )}
-
-          {activeCategory === "advisor" && (
-            <div className="execom-member-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
-              {filteredAdvisors.map((m, i) => renderCard(m, i))}
+          {/* Student Execom Tab */}
+          {activeTab === "student" && (
+            <div>
+              <div className="execom-subheading">
+                <h3>Student Executive Committee (2026–2027)</h3>
+                <span>Coordinators & Web Team</span>
+              </div>
+              <div className="execom-lead-grid">
+                {filteredStudent.map((m, i) => renderCard(m, i))}
+              </div>
             </div>
           )}
 
