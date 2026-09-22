@@ -277,10 +277,12 @@ export const studentExecom: CommitteeMember[] = [
     ieeeGrade: "Student Member, IEEE",
     year: "2026–2027",
     initials: "KSK",
+    image: `${import.meta.env.BASE_URL}execom/ks-kalidasan.jpg`,
     accentColor: "from-rose-600 to-orange-600",
     domains: ["Social Media Strategy", "Community Outreach", "Digital Campaigns", "Brand Engagement"],
     bio: "Social Media Coordinator for IEEE CNAG Kerala Section, managing social media channels, interactive engagement campaigns, and digital branding for affinity group initiatives.",
-    email: "kalidasan.ks@ieee.org",
+    email: "kskalidasan79@gmail.com",
+    phone: "+91 81295 92275",
     linkedin: "https://www.linkedin.com/in/ks-kalidasan",
   },
 ];
