@@ -51,7 +51,7 @@ export function Header() {
         <div className="wrap nav-inner">
           <Link to="/" className="brand" onClick={() => setOpen(false)} aria-label="IEEE Kerala Section CNAG Home">
             <img
-              src={`${import.meta.env.BASE_URL}ieee-logo.svg`}
+              src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`}
               alt="IEEE - Advancing Technology for Humanity"
               className="brand-ieee-logo"
             />
@@ -103,7 +103,7 @@ export function Header() {
         <div className="mobile-nav-scroll">
           <div className="mobile-nav-brand">
             <img
-              src={`${import.meta.env.BASE_URL}ieee-logo.svg`}
+              src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`}
               alt="IEEE Logo"
               className="mobile-brand-logo"
             />
