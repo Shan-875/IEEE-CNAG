@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Hero3DOrb } from "../components/Hero3DOrb";
-import { AutoMovingHighlights } from "../components/AutoMovingHighlights";
 import { KineticDomainRotator } from "../components/KineticDomainRotator";
 import { audiences, domains, events, professionalExecom, studentExecom, executiveCommittee, mission } from "../data";
 
@@ -55,11 +54,63 @@ function CommitteeCard({ member }: { member: (typeof executiveCommittee)[number]
 export function Home() {
   return (
     <main>
-      <section className="hero"><div className="hero-motion" aria-hidden="true"><i className="motion-orbit motion-orbit-one" /><i className="motion-orbit motion-orbit-two" /><i className="motion-orbit motion-orbit-three" /><span className="motion-node motion-node-one" /><span className="motion-node motion-node-two" /><span className="motion-node motion-node-three" /></div><div className="wrap hero-grid"><div className="hero-copy"><p className="eyebrow">IEEE Kerala Section · Region 10 Affinity Group</p><h1>Connect. Ideate. Innovate.</h1><p className="hero-description">The professional home of independent engineering consultants in Kerala — a living network of practice, counsel, and public service, empowered by technology and driven by excellence.</p><KineticDomainRotator /><div className="hero-actions"><Link to="/join" className="button button-primary">Join as Consultant →</Link><Link to="/consultants" className="button button-light">Find a Consultant</Link></div></div><div className="hero-panel" aria-label="CNAG identity"><Hero3DOrb className="hero-orb" size={340} /><img src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`} alt="IEEE - Advancing Technology for Humanity" className="hero-ieee-logo" /><span>Kerala Section</span><strong>Consultants’ Network</strong><small>Region 10 affinity group</small></div></div><div className="wrap hero-stats"><div><strong>250+</strong><span>Consultants & Experts</span></div><div><strong>12</strong><span>Domains</span></div><div><strong>100%</strong><span>Peer-Reviewed Advisory</span></div><div><strong>2026–2027</strong><span>Current Active Term</span></div></div></section>
-      <section className="signal-strip" aria-label="CNAG highlights"><div className="wrap signal-grid"><div><strong>Kerala</strong><span>Section platform</span></div><div><strong>12</strong><span>Practice domains listed</span></div><div><strong>2026–2027</strong><span>Published committee term</span></div><div><strong>IEEE</strong><span>Standards and ethics context</span></div></div></section>
-      <AutoMovingHighlights />
+      <section className="hero">
+        <div className="hero-motion" aria-hidden="true" />
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <p className="eyebrow">IEEE Kerala Section · Region 10 Affinity Group</p>
+            <h1>Connect. Ideate. Innovate.</h1>
+            <p className="hero-description">The professional home of independent engineering consultants in Kerala — a living network of practice, counsel, and public service, empowered by technology and driven by excellence.</p>
+            <KineticDomainRotator />
+            <div className="hero-actions">
+              <Link to="/join" className="button button-primary">Join as Consultant →</Link>
+              <Link to="/consultants" className="button button-light">Find a Consultant</Link>
+            </div>
+          </div>
+          <div className="hero-panel" aria-label="CNAG identity">
+            <Hero3DOrb className="hero-orb" size={340} />
+            <img src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`} alt="IEEE - Advancing Technology for Humanity" className="hero-ieee-logo" />
+            <span>Kerala Section</span>
+            <strong>Consultants’ Network</strong>
+            <small>Region 10 affinity group</small>
+          </div>
+        </div>
+        <div className="wrap hero-stats">
+          <div><strong>250+</strong><span>Consultants & Experts</span></div>
+          <div><strong>12</strong><span>Domains</span></div>
+          <div><strong>100%</strong><span>Peer-Reviewed Advisory</span></div>
+          <div><strong>2026–2027</strong><span>Current Active Term</span></div>
+        </div>
+      </section>
+      <section className="signal-strip" aria-label="CNAG highlights">
+        <div className="wrap signal-grid">
+          <div><strong>Kerala</strong><span>Section platform</span></div>
+          <div><strong>12</strong><span>Practice domains listed</span></div>
+          <div><strong>2026–2027</strong><span>Published committee term</span></div>
+          <div><strong>IEEE</strong><span>Standards and ethics context</span></div>
+        </div>
+      </section>
       <section className="section"><div className="wrap split"><div><p className="eyebrow">About CNAG Kerala</p><h2>A Kerala Section platform for the consulting profession.</h2></div><div><p className="lede">CNAG-KS brings together certified IEEE members and industry leaders to build a trusted, transparent roster of consultants. We provide independent technical counsel to MSMEs, enterprises, and government stakeholders while nurturing the next generation of engineering advisors.</p><p>Our practitioners deliver rigorous techno-commercial feasibility evaluations, patents reviews, and policy compliance guidance backed by global IEEE standards and ethics.</p><Link to="/about" className="text-link">Read our mission & charter →</Link></div></div></section>
-      <section className="section section-tint"><div className="wrap"><div className="section-heading"><p className="eyebrow">Important capabilities & practice highlights</p><h2>Practice rooted in exchange.</h2></div><div className="capability-grid">{capabilities.map((item) => <article className="capability" key={item.number}><span>{item.number} · {item.label}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div></div></section>
+      <section className="section section-tint capabilities-motion-section">
+        <div className="wrap">
+          <div className="section-heading">
+            <p className="eyebrow">Important capabilities & practice highlights</p>
+            <h2>Practice rooted in exchange.</h2>
+          </div>
+        </div>
+
+        <div className="motion-rail-wrapper">
+          <div className="motion-rail-track">
+            {[...capabilities, ...capabilities].map((item, idx) => (
+              <article className="capability motion-card" key={`${item.number}-${idx}`}>
+                <span>{item.number} · {item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
       <section className="section"><div className="wrap split split-event"><div><p className="eyebrow">Featured knowledge</p><h2>{events[0].title}</h2><p className="lede">{events[0].summary}</p><Link to="/events" className="text-link">View activities and events →</Link></div><div className="event-feature"><img src={events[0].image} alt={events[0].title} loading="lazy" /><div><span>{events[0].tag}</span><strong>{events[0].date}</strong></div></div></div></section>
       <section className="section section-tint"><div className="wrap network-layout"><div><p className="eyebrow">The network</p><h2>Three ways into the community.</h2><p className="lede">{mission}</p><Link to="/join" className="text-link">Find your path →</Link></div><div className="path-list">{audiences.map((audience) => <article key={audience.title}><span>{audience.kicker}</span><div><strong>{audience.title}</strong><h3>{audience.badge}</h3><p>{audience.body}</p></div></article>)}</div></div></section>
       <section className="section governance-section"><div className="wrap"><div className="governance-heading"><div><p className="eyebrow">Governance & committee structure</p><h2>Executive Committee 2026–2027</h2></div><Link to="/execom" className="text-link">View full governance charter →</Link></div><div className="committee-group"><div className="committee-group-title"><h3>Professional Executive Committee</h3><span>Core Leadership</span></div><div className="committee-grid">{professionalExecom.map((member) => <CommitteeCard key={member.id} member={member} />)}</div></div><div className="committee-group" style={{ marginTop: "44px" }}><div className="committee-group-title"><h3>Student Executive Committee</h3><span>Coordinators & Web Team</span></div><div className="committee-grid">{studentExecom.map((member) => <CommitteeCard key={member.id} member={member} />)}</div></div></div></section>

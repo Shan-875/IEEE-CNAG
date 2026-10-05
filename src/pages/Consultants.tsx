@@ -2,8 +2,6 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { consultants } from "../data";
 import { Reveal } from "../components/Reveal";
-import { TiltCard } from "../components/TiltCard";
-import { LaserLine } from "../components/LaserLine";
 
 export function Consultants() {
   const [q, setQ] = useState("");
@@ -36,8 +34,6 @@ export function Consultants() {
           Explore domain practice areas below or apply to list your consultancy practice on the roster.
         </p>
 
-        <LaserLine color="green" width="240px" />
-
         <label className="search">
           <span className="sr">Search consultancy practices</span>
           <input
@@ -67,17 +63,14 @@ export function Consultants() {
           <div className="trio">
             {list.map((c, i) => (
               <Reveal key={c.id} delay={i * 60}>
-                <TiltCard
-                  maxRotation={10}
-                  glowColor="green"
-                  hasLaser={true}
+                <article
                   className="card"
                   style={{ cursor: "pointer" }}
                   onClick={() => setSelectedPractice(c)}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
                     <span className="card-badge">{c.domain}</span>
-                    <span style={{ fontSize: "0.72rem", color: "var(--maroon)", fontWeight: 700, background: "rgba(107, 29, 42, 0.08)", padding: "2px 8px", borderRadius: "4px" }}>
+                    <span style={{ fontSize: "0.72rem", color: "var(--c-blue)", fontWeight: 700, background: "rgba(0, 102, 255, 0.08)", padding: "2px 8px", borderRadius: "4px" }}>
                       {c.status}
                     </span>
                   </div>
@@ -97,7 +90,7 @@ export function Consultants() {
                       ))}
                     </div>
                   </div>
-                </TiltCard>
+                </article>
               </Reveal>
             ))}
           </div>

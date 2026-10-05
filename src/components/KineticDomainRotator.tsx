@@ -21,9 +21,8 @@ export function KineticDomainRotator() {
 
   return (
     <div className="kinetic-rotator-container">
-      <span className="rotator-prefix">Specialized Advisory in:</span>
+      <span className="rotator-prefix">Specialized Advisory:</span>
       <span className={`rotator-badge ${fade ? "is-visible" : "is-fading"}`}>
-        <span className="rotator-dot" />
         <strong className="rotator-text">{domains[index]}</strong>
       </span>
     </div>

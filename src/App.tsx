@@ -12,8 +12,6 @@ import { Join } from "./pages/Join";
 import { Resources } from "./pages/Resources";
 import { Contact } from "./pages/Contact";
 
-import { FloatingDock } from "./components/FloatingDock";
-
 function ScrollTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -43,7 +41,6 @@ export default function App() {
             <Route path="/join" element={<Join />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
-          <FloatingDock />
           <Footer />
         </div>
       </>
