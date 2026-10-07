@@ -108,6 +108,7 @@ export const professionalExecom: CommitteeMember[] = [
     ieeeGrade: "Senior Member, IEEE",
     year: "2026–2027",
     initials: "AKS",
+    image: `${import.meta.env.BASE_URL}execom/ak-shuhair.jpg`,
     accentColor: "from-amber-600 to-yellow-600",
     domains: ["Power Systems", "Grid Reliability", "Energy Policy", "Substation Automation"],
     bio: "Distinguished power systems leader with over 3 decades of spearheading power transmission, grid modernization, and electrical safety standards across Kerala's energy landscape.",
