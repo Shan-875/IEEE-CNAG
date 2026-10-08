@@ -16,16 +16,21 @@ export function Preloader({ onDone }: { onDone: () => void }) {
 
   return (
     <div className={`preloader ${out ? "is-out" : ""}`}>
-      <Hero3DOrb className="preloader-orb" size={460} />
+      <Hero3DOrb className="preloader-orb" size={360} />
       <div className="pre-core">
-        <img
-          src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`}
-          alt="IEEE - Advancing Technology for Humanity"
-          className="pre-full-logo"
-        />
-        <p>IEEE Kerala Section</p>
-        <h1>CNAG</h1>
-        <span>Consultants’ Network Affinity Group</span>
+        <div className="pre-logo-lockup">
+          <img
+            src={`${import.meta.env.BASE_URL}ieee-logo-white.svg`}
+            alt="IEEE - Advancing Technology for Humanity"
+            className="pre-full-logo"
+          />
+          <span className="pre-logo-divider" aria-hidden="true" />
+          <div className="pre-brand-copy">
+            <p>IEEE Kerala Section</p>
+            <h1>CNAG</h1>
+            <span>Consultants’ Network Affinity Group</span>
+          </div>
+        </div>
       </div>
     </div>
   );
